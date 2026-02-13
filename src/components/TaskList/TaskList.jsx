@@ -17,9 +17,11 @@ export const TaskList = () => {
   const tasks = useSelector(state => state.tasks.items);
 
   const statusFilter = useSelector(state => state.filters.status)
+  const priorityFilter = useSelector(state => state.filters.priority)
 
   console.log('Current status filter:', statusFilter);
-  console.log('Tasks from state:', tasks);
+  console.log('Current priority filter:', priorityFilter);
+  console.log('Tasks from state: ', tasks)
 
   const visibleTasks = getVisibleTasks(tasks, statusFilter)
 

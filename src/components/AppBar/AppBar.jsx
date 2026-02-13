@@ -1,6 +1,7 @@
 import { StatusFilter } from '../StatusFilter/StatusFilter';
 import { TaskCounter } from '../TaskCounter/TaskCounter';
 import css from './AppBar.module.scss';
+import { PriorityFilter } from '../PriorityFilter/PriorityFilter';
 
 export const AppBar = () => {
   return (
@@ -12,6 +13,7 @@ export const AppBar = () => {
       <section className={css.section}>
         <h2 className={css.title}>Filter by status</h2>
         <StatusFilter />
+        <PriorityFilter />
       </section>
     </header>
   );
