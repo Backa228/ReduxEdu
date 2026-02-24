@@ -42,7 +42,7 @@ const slice = createSlice({
         fetchInprogress: (state) => {
             state.isLoading = true
         },
-        fetchSuccess: (state, sction) => {
+        fetchSuccess: (state, action) => {
             state.isLoading = false
             state.items = action.payload
         },
