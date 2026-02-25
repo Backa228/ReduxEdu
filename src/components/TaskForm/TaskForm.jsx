@@ -1,7 +1,8 @@
 import { Button } from '../Button/Button';
 import css from './TaskForm.module.scss';
 import { useDispatch } from 'react-redux'
-import { addTask } from '../../redux/tasksSlice.js';
+// import { addTask } from '../../redux/tasksSlice.js';
+import { addTask } from '../../redux/operations';
 import { useState } from 'react';
 
 export const TaskForm = () => {
@@ -19,7 +20,7 @@ export const TaskForm = () => {
       priority: priority,
     }))
     setText('')
-    setPriority('')
+    setPriority('low')
     form.reset();
   };
 

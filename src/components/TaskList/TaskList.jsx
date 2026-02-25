@@ -2,7 +2,7 @@ import css from './TaskList.module.scss';
 import { Task } from '../Task/Task'
 import { useSelector, useDispatch } from 'react-redux'
 import { useEffect } from 'react'
-import { fetchTasks } from '../../redux/tasksSlice'
+import { fetchTasks } from '../../redux/operations'
 
 const getVisibleTasks = (tasks, statusFilter, priorityFilter) => {
 

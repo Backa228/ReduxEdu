@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { fetchTasks } from './operations'
 
 const slice = createSlice({
     name: 'tasks',
@@ -13,46 +14,73 @@ const slice = createSlice({
         isLoading: false,
         error: null,
     },
-    reducers: {
-        addTask: (state, action) => {
+    // reducers: {
+    //     addTask: (state, action) => {
+    //             state.items.push(action.payload)
+    //     },
+    //     deleteTask: (state, action) => {
+    //             state.items = state.items.filter(task => task.id !== action.payload)
+    //     },
+    //     toggleTask: (state, action) => {
+    //         for (const task of state.items) {
+    //             if (task.id === action.payload) {
+    //                 task.completed = !task.completed;
+    //                 break;
+    //             }
+    //         }
+    //     },
+
+    //     updateTaskPriority: (state, action) => {
+    //         const { id, priority } = action.payload
+    //         for (const task of state.items) {
+    //             if (task.id === id) {
+    //                 task.priority = priority
+    //                 break
+    //             }
+    //         }
+    //     },
+
+    //     // fetchInProgress: (state) => {
+    //     //     state.isLoading = true
+    //     // },
+    //     // fetchSuccess: (state, action) => {
+    //     //     state.isLoading = false
+    //     //     state.items = action.payload
+    //     // },
+    //     // fetchError: (state, action) => {
+    //     //     state.isLoading = false
+    //     //     state.error = action.payload
+    //     // },
+
+    // },
+    extraReducers: builder => {
+        builder
+            .addCase(fetchTasks.pending, (state) => {
+                state.isLoading = true
+            })
+            .addCase(fetchTasks.fulfilled, (state, action) => {
+                state.isLoading = false
+                state.error = null
+                state.items = action.payload
+            })
+            .addCase(fetchTasks.rejected, (state, action) => {
+                state.isLoading = false
+                state.error = action.payload
+            })
+            .addCase(addTask.pending, (state) => {
+                state.isLoading = true
+            })
+            .addCase(addTask.fulfilled, (state, action) => {
+                state.isLoading = false
+                state.error = null
                 state.items.push(action.payload)
-        },
-        deleteTask: (state, action) => {
-                state.items = state.items.filter(task => task.id !== action.payload)
-        },
-        toggleTask: (state, action) => {
-            for (const task of state.items) {
-                if (task.id === action.payload) {
-                    task.completed = !task.completed;
-                    break;
-                }
-            }
-        },
-
-        updateTaskPriority: (state, action) => {
-            const { id, priority } = action.payload
-            for (const task of state.items) {
-                if (task.id === id) {
-                    task.priority = priority
-                    break
-                }
-            }
-        },
-
-        fetchInprogress: (state) => {
-            state.isLoading = true
-        },
-        fetchSuccess: (state, action) => {
-            state.isLoading = false
-            state.items = action.payload
-        },
-        fetchError: (state, action) => {
-            state.isLoading = false
-            state.error = action.payload
-        },
-
+            })
+            .addCase(addTask.rejected, (state, action) => {
+                state.isLoading = false
+                state.error = action.payload
+            })
     }
 
 })
-export const { addTask, deleteTask, toggleTask, updateTaskPriority, fetchInprogress, fetchSuccess, fetchError } = slice.actions;
+export const { addTask, deleteTask, toggleTask, updateTaskPriority, fetchInProgress, fetchSuccess, fetchError } = slice.actions;
 export default slice.reducer;
