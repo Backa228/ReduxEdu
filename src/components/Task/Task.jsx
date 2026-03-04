@@ -10,14 +10,18 @@ export const Task = ({ task }) => {
   const handleDelete = () => {
     dispatch(deleteTask(task.id));
   };
-  const handleToggle = (newPriority) => {
+  const handleToggle = () => {
     dispatch(updateTask({
       id: task.id,
-      ipdates: { priority: newPriority }
+      updates: { completed: !task.completed }
     }));
   };
   const handlePriorityChange = (newPriority) => {
-    dispatch(updateTask(task.id, {priority: newPriority}));
+    dispatch(updateTask({
+      id: task.id,
+      updates: { priority: newPriority }
+    }
+    ));
   }
   return (
     <div className={clsx(css.wrapper, task.priority === "high" && css.highPriority, task.priority === "medium" && css.mediumPriority, task.priority === "low" && css.lowPriority)}>

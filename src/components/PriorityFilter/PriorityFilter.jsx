@@ -1,15 +1,15 @@
 import { Button } from '../Button/Button';
 import css from './PriorityFilter.module.scss';
 import { useSelector, useDispatch } from 'react-redux'
-import { setStatusFilter } from '../../redux/filtersSlice'
+import { setPriorityFilter } from '../../redux/filtersSlice'
 import clsx from 'clsx';
 
 export const PriorityFilter = () => {
-  const filter = useSelector(state => state.filters.status)//підписка на стор
+  const filter = useSelector(state => state.filters.priority)//підписка на стор
   const dispatch = useDispatch()
 
   const handleFilterChange = (newFilter) => {
-    dispatch(setStatusFilter(newFilter))//викликає екшени і відправляє дані на стор 
+    dispatch(setPriorityFilter(newFilter))//викликає екшени і відправляє дані на стор 
   }
 
   return (

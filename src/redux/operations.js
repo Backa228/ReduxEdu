@@ -58,7 +58,7 @@ export const deleteTask = createAsyncThunk(
 
 export const updateTask = createAsyncThunk(
     'tasks/updateTask',
-    async (id, updates, thunkAPI) => {
+    async ({ id, updates }, thunkAPI) => {
         try { 
             const response = await axios.put(`/tasks/${id}`, updates)
             return response.data

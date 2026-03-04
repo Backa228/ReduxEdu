@@ -16,5 +16,5 @@ const slice = createSlice({
     }
 })
 
-export const { setStatusFilter } = slice.actions
+export const { setStatusFilter, setPriorityFilter } = slice.actions
 export default slice.reducer
