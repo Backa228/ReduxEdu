@@ -20,6 +20,7 @@ export const TaskList = () => {
     <>
       {isLoading && <p>Loading tasks...</p>}
       {error && <p>Error: {error}</p>}
+      {!isLoading && !error && visibleTasks.lenth === 0 && <p>No tasks yet.</p>}
 
       <ul className={css.list}>
         {visibleTasks.map((task) => (

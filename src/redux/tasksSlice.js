@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createSelector } from "@reduxjs/toolkit";
 import { fetchTasks, addTask, deleteTask, updateTask } from "./operations";
 import { selectStatusFilter, selectPriorityFilter } from "./filtersSlice"
 
@@ -14,37 +14,38 @@ const handleRejected = (state, action) => {
 export const selectTasks = (state) => state.tasks.items
 export const selectIsLoading = (state) => state.tasks.isLoading
 export const selectError = (state) => state.tasks.error
-export const selectVisibleTasks = (state) => {
-    const tasks = selectTasks(state)
-    const statusFilter = selectStatusFilter(state)
-    const priorityFilter = selectPriorityFilter(state)
 
-    return tasks.filter(task => {
-        const statusMatch = 
+export const selectVisibleTasks = createSelector(
+    [selectTasks, selectStatusFilter, selectPriorityFilter],
+    (tasks, statusFilter, priorityFilter) => {
+        return tasks.filter(task => {
+            const statusMatch = 
             statusFilter === "all" ||
             (statusFilter === "active" && !task.completed) ||
-            (statusFilter === "complated" && task.completed)
-        
-        const priorityMatch = 
+            (statusFilter === "completed" && task.completed);
+            
+            const priorityMatch = 
             priorityFilter === "all" ||
-            task.priority === priorityFilter
+            task.priority === priorityFilter;
 
-        return statusMatch && priorityMatch
-    })
-}
-
-export const selectTasksCount = (state) => {
-  const tasks = selectTasks(state)
-
-  return tasks.reduce((acc, task) => {
-    if (task.completed) {
-      acc.completed += 1
-    } else {
-      acc.active += 1
+            return statusMatch && priorityMatch;
+    });
     }
-    return acc
-    }, { active: 0, completed: 0 })
-}
+)  
+
+export const selectTasksCount = createSelector(
+    [selectTasks],
+    (tasks) => {
+        return tasks.reduce((acc, task) => {
+            if (task.completed) {
+                acc.completed += 1
+            } else {
+                acc.active += 1
+            }
+            return acc
+        }, { active: 0, completed: 0 })
+    }
+)
 
 const slice = createSlice({
     name: 'tasks',
@@ -95,6 +96,4 @@ const slice = createSlice({
     }
 
 })
-// export const { updateTaskPriority } = slice.actions;
-// export const { addTask, deleteTask, toggleTask, updateTaskPriority, fetchInProgress, fetchSuccess, fetchError } = slice.actions;
 export default slice.reducer;
