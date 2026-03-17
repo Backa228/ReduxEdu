@@ -1,41 +1,28 @@
-// import { NavLink } from "react-router-dom";
-// import clsx from "clsx";
+import { NavLink } from "react-router-dom";
+import css from './Header.module.scss';
+import clsx from "clsx";
 
-// const buildLinkClass = ({ isActive }) => {
-//     return clsx("link", isActive && "active");
-// };
+const buildLinkClass = ({ isActive }) => {
+    return clsx(css.link, isActive && css.active);
+};
 
 const Header = () => {
 
-    return (
+  return (
     <header>
        <nav>
-        <ul className='routerList'>
+        <ul className={css.routerList}>
           <li>
-            Головна
+            <NavLink to="/" className={buildLinkClass}>Головна</NavLink>
           </li>
            <li>
-            Список завдань
+            <NavLink to="/tasks" className={buildLinkClass}>Список завдань</NavLink>
           </li>
+         
         </ul>
       </nav>
     </header>
   );
-
-//   return (
-//     <header>
-//        <nav>
-//         <ul className='routerList'>
-//           <li>
-//             <NavLink to="/" className={buildLinkClass}>Головна</NavLink>
-//           </li>
-//            <li>
-//             <NavLink to="/tasks" className={buildLinkClass}>Список завдань</NavLink>
-//           </li>
-//         </ul>
-//       </nav>
-//     </header>
-//   );
 };
 
 export default Header;
