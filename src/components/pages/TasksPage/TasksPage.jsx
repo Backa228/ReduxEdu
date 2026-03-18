@@ -6,10 +6,11 @@ const TasksPage = () => {
     return (
         <div>
             <h1>Tasks Page</h1>
-            <AppBar></AppBar>
-            <TaskForm></TaskForm>
-            <TaskList></TaskList>
+            <AppBar/>
+            <TaskForm/>
+            <TaskList/>
         </div>
     )
 }
+
 export default TasksPage
