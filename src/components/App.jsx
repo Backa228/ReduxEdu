@@ -6,7 +6,9 @@ import TasksPage from "./pages/TasksPage/TasksPage"
 import NotFound from "./pages/NotFound/NotFound"
 import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
-import { refreshUser } from ",./redux/auth/operation" 
+import { refreshUser } from "../redux/auth/operation" 
+import RegisterPage from './pages/RegisterPage/RegisterPage';
+import LoginPage from './pages/LoginPage/LoginPage';
 
 export const App = () => {
     const dispatch = useDispatch();
@@ -18,8 +20,12 @@ export const App = () => {
     <Routes>
         <Route path='/' element={<Layout/>} >
           <Route index element={<HomePage/>} />
-          <Route path='tasks' element={<TasksPage/>} />
           <Route path='*' element={<NotFound />} />
+          <Route path='login' element={<LoginPage />} />
+          <Route path='register' element={<RegisterPage />} />
+          <Route path='tasks' element={
+            <PrivateRoute redirectTo="/login" component={<TasksPage/>}/>
+          } />
         </Route>
     </Routes>
   );
