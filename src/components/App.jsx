@@ -8,6 +8,8 @@ import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { refreshUser } from "../redux/auth/operation" 
 import RegisterPage from './pages/RegisterPage/RegisterPage';
+import { PrivateRoute } from "./PrivateRoute"
+import { RestrictedRoute } from "./RestrictedRoute"
 import LoginPage from './pages/LoginPage/LoginPage';
 
 export const App = () => {
@@ -21,8 +23,12 @@ export const App = () => {
         <Route path='/' element={<Layout/>} >
           <Route index element={<HomePage/>} />
           <Route path='*' element={<NotFound />} />
-          <Route path='login' element={<LoginPage />} />
-          <Route path='register' element={<RegisterPage />} />
+          <Route path='login' element={
+            <RestrictedRoute redirectTo="/tasks" component={<LoginPage />}/>
+          } />
+          <Route path='register' element={
+            <RestrictedRoute redirectTo="/tasks" component={<RegisterPage />}/>
+          } />
           <Route path='tasks' element={
             <PrivateRoute redirectTo="/login" component={<TasksPage/>}/>
           } />

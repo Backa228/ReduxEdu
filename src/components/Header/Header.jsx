@@ -1,13 +1,17 @@
 import { NavLink } from "react-router-dom";
 import css from './Header.module.scss';
 import clsx from "clsx";
+import { selectIsLoggedIn } from "../../redux/auth/selectors";
+import { useSelector } from "react-redux"
+import { UserMenu } from "../UserMenu/UserMenu"
+import { AuthNav } from "../AuthNav/AuthNav";
 
 const buildLinkClass = ({ isActive }) => {
     return clsx(css.link, isActive && css.active);
 };
 
 const Header = () => {
-
+  const isLoggedIn = useSelector(selectIsLoggedIn)
   return (
     <header>
        <nav>
@@ -15,9 +19,14 @@ const Header = () => {
           <li>
             <NavLink to="/" className={buildLinkClass}>Головна</NavLink>
           </li>
-           <li>
+          {isLoggedIn && (
+            <li>
             <NavLink to="/tasks" className={buildLinkClass}>Список завдань</NavLink>
           </li>
+          )}
+
+          {isLoggedIn ? <UserMenu/> : <AuthNav/>}
+           
          
         </ul>
       </nav>
