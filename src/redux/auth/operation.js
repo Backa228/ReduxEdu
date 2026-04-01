@@ -48,10 +48,11 @@ export const register = createAsyncThunk(
             email,
             password
         })
-
+      console.log("DATA:", data);
+      console.log("ERROR:", error);
       if (error) throw error;
-
-      return ;
+        
+      return data.user;
     } catch (e) {
       return thunkAPI.rejectWithValue(e.message);
     }

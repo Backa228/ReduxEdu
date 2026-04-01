@@ -8,7 +8,7 @@ export const RegisterForm = () => {
     const handleSubmit = (e) => {
         e.preventDefault()
         const form = e.target
-        const email = form.elemnt.email.value
+        const email = form.elements.email.value
         const password = form.elements.password.value
 
         dispatch(register({ email, password }))
@@ -17,7 +17,7 @@ export const RegisterForm = () => {
     return (
         <form className={css.form} onSubmit={handleSubmit}>
             <label htmlFor="email">Email:</label>
-            <input type="email" name="email" placeholder="Enter your email" />
+            <input type="email" name="email" placeholder="Enter your email" defaultValue="@gmail.com" />
             <label htmlFor="password">Password:</label>
             <input type="password" name="password" placeholder="Enter your password" />
             <button type="submit" className={css.button}>Register</button>
