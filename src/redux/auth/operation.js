@@ -1,57 +1,60 @@
-import { createAsyncThunk } from "@reduxjs/toolkit"
-import { supabase } from "../../supabaseClient"
-//LOGIN
+import { createAsyncThunk } from "@reduxjs/toolkit";
+import { supabase } from "../../supabaseClient";
+
+// LOGIN
 export const logIn = createAsyncThunk(
   "auth/login",
   async ({ email, password }, thunkAPI) => {
     try {
-        const { data, error } = await supabase
+    const { data, error} = await supabase
         .auth
-        .signInWithPassword({
-            email,
-            password
-        })
-
+        .signInWithPassword({ 
+            email, 
+            password 
+        });
+    
       if (error) throw error;
 
-      return ;
+      return data.user;
     } catch (e) {
       return thunkAPI.rejectWithValue(e.message);
     }
   }
 );
 
-//LOGOUT
+// LOGOUT
 export const logOut = createAsyncThunk(
   "auth/logout",
   async (_, thunkAPI) => {
     try {
-        const { error } = await supabase.auth.signOut()
+      const { error } = await supabase.auth.signOut();
 
       if (error) throw error;
 
-      return ;
+      return;
     } catch (e) {
       return thunkAPI.rejectWithValue(e.message);
     }
-  }
-);
+});
 
-//REGISTOR
+// REGISTER
 export const register = createAsyncThunk(
-  "auth/registor",
+  "auth/register",
   async ({ email, password }, thunkAPI) => {
     try {
-        const { data, error } = await supabase
+    const { data, error} = await supabase
         .auth
-        .signUp({
-            email,
-            password
-        })
+        .signUp({ 
+            email, 
+            password 
+        });
+
+
       console.log("DATA:", data);
       console.log("ERROR:", error);
+    
       if (error) throw error;
-        
+
       return data.user;
     } catch (e) {
       return thunkAPI.rejectWithValue(e.message);
@@ -59,19 +62,18 @@ export const register = createAsyncThunk(
   }
 );
 
-//REFRESH USER
+// REFRESH USER
 export const refreshUser = createAsyncThunk(
   "auth/refreshUser",
   async (_, thunkAPI) => {
     try {
-        const { data, error } = await supabase.auth.getUser()
+      const { data, error } = supabase.auth.getUser();
 
-        if (error) throw error;
-        if(!data.user) throw new Error("No user found")
+      if (error) throw error;
+      if (!data.user) throw new Error("No user found");
 
       return data.user;
     } catch (e) {
       return thunkAPI.rejectWithValue(e.message);
-    }
-  }
-);
+    }           
+});
